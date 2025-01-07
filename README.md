@@ -1,66 +1,181 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚐 Travel Shuttle Reservation System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![Livewire](https://img.shields.io/badge/Livewire-3-FB70A9?style=for-the-badge&logo=livewire&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 
-## About Laravel
+A modern travel shuttle reservation system built with Laravel 11, Livewire 3, and Tailwind CSS. This application allows users to book shuttle services between different cities and locations, with an admin panel for managing trips, reservations, and vehicles.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- 🚌 Simple shuttle reservation system
+- 🎫 Dynamic seat selection
+- 📍 Multiple pickup and drop-off locations
+- 📱 Responsive design using Tailwind CSS
+- ⚡ Real-time updates with Livewire
+- 👥 Role-based access control using Spatie Laravel Permission (admin)
+- 🔒 Secure authentication with Jetstream (admin)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Prerequisites
 
-## Learning Laravel
+- PHP ^8.2
+- Composer
+- Node.js & NPM
+- MySQL/PostgreSQL
+- Git
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ⚙️ Installation
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Clone the repository
+```bash
+git clone https://github.com/freditrihandoko/travel-shuttle-reservation.git
+cd travel-shuttle-reservation
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Install PHP dependencies
+```bash
+composer install
+```
 
-## Laravel Sponsors
+3. Install and compile frontend dependencies
+```bash
+npm install
+npm run dev
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. Configure environment variables
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-### Premium Partners
+5. Set up your database in `.env` file
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+6. Run migrations and seeders
+```bash
+php artisan migrate
+php artisan db:seed
+```
+This will create an admin user:
+- Email: admin@gmail.com
+- Password: admin
 
-## Contributing
+7. To assign additional roles using tinker
+```bash
+php artisan tinker
+```
+Then run:
+```php
+// Assign additional roles
+$user = User::find(1);
+$user->assignRole('trip-admin');
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+// Check user roles
+$user->getRoleNames(); // ['trip-admin']
 
-## Code of Conduct
+// Remove role
+$user->removeRole('trip-admin');
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+// Add multiple roles
+$user->syncRoles(['trip-admin', 'reservation-admin']);
 
-## Security Vulnerabilities
+//or you can make it directly super-admin
+$user->hasRole('super-admin');
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+8. Start the development server
+```bash
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🏗️ Database Structure
+
+The system includes the following main tables:
+- `users` - User Admin management
+- `cities` - Available cities
+- `pools` - Pickup/drop-off locations
+- `routes` - Travel routes between pools
+- `trips` - Scheduled trips
+- `vehicles` - Available vehicles with seat configurations
+- `seats` - Individual seats in vehicles
+- `reservations` - Booking information
+- `passengers` - Passenger details for each reservation
+
+## 👥 Role System
+
+The application uses three main roles:
+- `super-admin`: Full access to all features
+- `trip-admin`: Manages trips and vehicles
+- `reservation-admin`: Handles reservations and passenger management
+
+## 📸 Screenshots
+
+![Index](https://i.ibb.co.com/DfqDRb4/Screenshot-2025-01-07-at-23-20-08.png)
+
+![Reservation](https://i.ibb.co.com/CBwctVv/Screenshot-2025-01-07-at-23-29-04.png)
+
+![Reservation 2](https://i.ibb.co.com/Qv1Lqzj/Screenshot-2025-01-07-at-23-30-23.png)
+
+![Reservation 3](https://i.ibb.co.com/DrdFtGv/Screenshot-2025-01-07-at-23-31-26.png)
+
+![Admin Dashboard](https://i.ibb.co.com/bNG1b7H/Screenshot-2025-01-07-at-23-35-49.png)
+
+![Vehicles](https://i.ibb.co.com/b7Bv75y/Screenshot-2025-01-07-at-23-36-11.png)
+
+![Trips](https://i.ibb.co.com/g6z4Sth/Screenshot-2025-01-07-at-23-41-01.png)
+
+![Reservation Admin](https://i.ibb.co.com/kSZCX7G/Screenshot-2025-01-07-at-23-42-26.png)
+
+## 🚧 Current Limitations & Future Development
+
+### Admin Management
+- Need to implement user admin management interface for role assignment
+- Add user activity logging
+- Enhance permission granularity
+
+### Notifications
+- SMS notifications for booking confirmations
+- WhatsApp integration for updates and reminders
+- Email notification system enhancement
+
+### Payment System
+The system currently lacks payment integration. Future development could include:
+- Payment gateway integration (Midtrans, Xendit, etc.)
+- Multiple payment method support
+- Automatic receipt generation
+- Refund processing system
+
+Feel free to contribute to these areas or adapt them according to your needs.
+
+
+## 🔐 Security
+
+- Authentication using Laravel Jetstream
+- Role-based access control using Spatie Laravel Permission
+- CSRF protection
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](LICENSE.md).
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](../../issues).
+
+## 👏 Acknowledgments
+
+- [Laravel](https://laravel.com)
+- [Livewire](https://livewire.laravel.com)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Spatie Laravel Permission](https://spatie.be/docs/laravel-permission)
+- [Jetstream](https://jetstream.laravel.com)
