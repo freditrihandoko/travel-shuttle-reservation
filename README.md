@@ -69,6 +69,8 @@ This will create an admin user:
 - Email: admin@gmail.com
 - Password: admin
 
+If you get an error doing 'php artisan migrate', please see here how to solve it (https://github.com/freditrihandoko/travel-shuttle-reservation/issues/1)
+
 7. To assign additional roles using tinker
 ```bash
 php artisan tinker
@@ -179,3 +181,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 - [Tailwind CSS](https://tailwindcss.com)
 - [Spatie Laravel Permission](https://spatie.be/docs/laravel-permission)
 - [Jetstream](https://jetstream.laravel.com)
+
+
+
+
